@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Detalis Page</title>
+
+    <!--! Bootsrap  -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <!--! Bootsrap  -->
+
+    <!--*Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!--*Icon -->
+
+    <!--! axios  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--! axios  -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--! loder  -->
+    <div
+      id="loder"
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        background-color: rgba(240, 248, 255, 0.748);
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+      "
+    >
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!--! loder  -->
+
+    <!--! models  -->
+    <!--TODO : LOGIN  -->
+    <div
+      class="modal fade"
+      id="loginModel"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Username:</label
+                >
+                <input type="text" class="form-control" id="input-name" />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >Password:</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="input-pass"
+                  value="123456"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="loginBtnClicked()"
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--TODO : LOGIN  -->
+
+    <!--TODO : Register  -->
+    <div
+      class="modal fade"
+      id="RegisterModel"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Register A new User
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="register-input-name"
+                />
+
+                <label for="recipient-name" class="col-form-label"
+                  >Username:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="register-input-username"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >Password:</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="Register-input-pass"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Image:</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="register-input-Imgae"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="rgisterBtnClicked()"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--TODO : Register  -->
+
+    <!--TODO : Add post  -->
+    <div
+      class="modal fade"
+      id="add-posts-Model"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              create A New Post
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Title:</label
+                >
+                <input type="text" class="form-control" id="creat-input-name" />
+              </div>
+              <div class="mb-3">
+                <label for="creat-input-body" class="form-label">Body</label>
+                <textarea
+                  style="resize: none"
+                  class="form-control"
+                  id="creat-input-body"
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Image:</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="creat-input-Imgae"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="creatNewPost()"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--TODO :  Add post  -->
+    <!--! models  -->
+
+    <!-- //!  Alert نجاح عملية تسجيل الدخول -->
+    <div
+      id="alertSuccess"
+      class="show fade"
+      style="position: fixed; bottom: 10px; right: 5px; z-index: 99999"
+    ></div>
+    <!-- //!  Alert نجاح عملية تسجيل الدخول -->
+
+    <!-- nav -->
+
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <div class="col-9">
+          <nav
+            class="navbar navbar-expand-lg bg-body-tertiary shadow rounded pt-2"
+          >
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">AlenaMedia</a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <i style="color: #fff" class="fa-solid fa-bars"></i>
+
+                <!-- <span class="navbar-toggler-icon"></span> -->
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="index.html"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      onclick="proileClicked()"
+                      style="cursor: pointer"
+                      >Profile</a
+                    >
+                  </li>
+                </ul>
+
+                <!-- عند عملية الستجيل -->
+                <div id="login-div" class="d-flex w-100 justify-content-end">
+                  <button
+                    id="login-btn"
+                    type="button"
+                    class="btn btn-outline-success mx-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModel"
+                  >
+                    Login
+                  </button>
+                  <button
+                    id="register-btn"
+                    type="button"
+                    class="btn btn-outline-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#RegisterModel"
+                  >
+                    Register
+                  </button>
+                </div>
+                <!-- عند عملية الستجيل -->
+
+                <!--! بعد عملية التسجيل  -->
+                <div
+                  id="logout-div"
+                  class="d-flex w-100 justify-content-end align-items-center"
+                >
+                  <img
+                    id="imgInDom"
+                    class="rounded-circle"
+                    style="width: 40px; height: 40px"
+                    src="profile-img/kid.png"
+                  />
+
+                  <b class="mx-2" id="userNameInDom"></b>
+                  <button
+                    onclick="logout()"
+                    id="logout-btn"
+                    type="button"
+                    class="btn btn-outline-danger"
+                  >
+                    Logout
+                  </button>
+                </div>
+                <!--! بعد عملية التسجيل  -->
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- nav -->
+
+    <!--* Users post  -->
+    <div class="container">
+      <div class="row d-flex justify-content-center mt-4">
+        <div class="col-lg-9">
+          <h1>
+            <span style="color: #fff" id="usernameSpan">@</span>
+            Post
+          </h1>
+        </div>
+      </div>
+
+      <!--! post row  -->
+
+      <div class="row d-flex justify-content-center mt-4">
+        <div id="showPost" class="col-lg-9">
+          <!--! post  -->
+          <div class="card shadow my-1 mycard">
+            <div class="card-header">
+              <img
+                class="rounded-circle border border-2"
+                src="profile-img/boy.png"
+                alt="profile-img"
+                style="width: 40px; height: 40px"
+              />
+              <b>@alita99</b>
+            </div>
+            <div class="card-body">
+              <img
+                class="w-100"
+                src="posts-imgs/pexels-hikmet-a-8605826.jpg"
+                alt="posts"
+              />
+              <h6 class="mt-2" style="color: gray">2 min ago</h6>
+              <h5>Hello World</h5>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
+                quibusdam neque sapiente suscipit atque veniam nam corrupti eius
+                ducimus vitae. Distinctio dolor possimus ullam perspiciatis
+                corpori
+              </p>
+              <hr />
+              <div>
+                <i class="fa-solid fa-pen"></i>
+                <span> (3) Comments</span>
+              </div>
+            </div>
+
+            <div id="comments"></div>
+          </div>
+          <!--! post  -->
+        </div>
+      </div>
+    </div>
+    <!--* Users post  -->
+
+    <!-- TODO=========================================================== -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="js/global.js"></script>
+    <script src="js/detalis.js"></script>
+  </body>
+</html>
